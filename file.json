@@ -1,0 +1,21 @@
+{
+	"NOKIA":{
+		"name": "Nokia 3310",
+		"properties":[
+			{"display":"none",
+			 "href":"stroit"},
+			{"name":"строительные",
+			 "href":"stro"}
+		]
+	},
+	"menu2":{
+		"name": "чето2",
+		"submenu":[
+			{"name":"строительные материалы2",
+			 "href":"stroit2"},
+			{"name":"строительные2",
+			 "href":"stro2"}
+		]
+	}
+
+}
