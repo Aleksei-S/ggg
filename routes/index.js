@@ -36,7 +36,7 @@ router.get('/', function(req, res, next) {
 
 
 
-router.post('/users/fa', function(req, res, next) {
+router.post('/fa', function(req, res, next) {
   res.render('index', { title: req.body.auto});
 });
 
