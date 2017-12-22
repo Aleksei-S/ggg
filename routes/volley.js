@@ -19,30 +19,75 @@ con.connect(function(err) {
 
 
 
+
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
+var tableChampionship = [];
+var teamList = [];
+var stageList = [];
+var placeList = [];
 
-	var teamList = ["team1","team2","team3","team4"];
+	con.query("SELECT * FROM team", function (err, rows, fields) {
+	//console.log(rows);
+	teamList = [];
+	stageList = [];
+	placeList = [];
+		rows.forEach(function (current, index, arr) {
+			teamList.push(current.teamName);
+		});
+	});
 
-//con.query("SELECT * FROM team", function (err, rows, fields) {
-//	console.log(rows);
-//	console.log(fields);
-//	//res.send(rows);
-//})
+	con.query("SELECT * FROM championship", function (err, rows, fields) {
+	//console.log(rows);
+
+	 rows.forEach(function (current, index, arr) {
+	 	tableChampionship.push(current);
+	 	stageList.push(current.stage);
+	 	placeList.push(current.place);
+
+	 });
+		res.render('volley', { title:"volley", tableChampionship : tableChampionship , teamList : teamList, stageList : stageList, placeList : placeList});
+
+	});
 
 
-res.render('volley', { title:"volley", teamList : teamList});
+
+
 
 });
+
+// 	con.query("SELECT * FROM championship", function (err, rows, fields) {
+// 	//console.log(rows);
+
+// 	// rows.forEach(function (current, index, arr) {
+// 	// 	console.log(current);
+// 	// });
+
+// });
+
+
 
 
 
 router.post('/da', function(req, res, next) {
- //res.send("dadada");
- var teamList = ["team1","team2","team3","team4"];
- res.render('volley', { title: "gggggg", teamList : teamList});
+
+	let stage = req.body.stage;
+	let team1 = req.body.team1;
+	let team2 = req.body.team2;
+	let date = new Date(req.body.date + 'T' + req.body.time + 'Z');
+	let place = req.body.place;
+	let result = req.body.result;
+
+	con.query("INSERT INTO championship (stage, team1, team2, date, place, result) VALUES ('"+stage+"', '"+team1+"', '"+team2+"', '"+date+"', '"+place+"', '"+result+"');", function (err, rows, fields) {
+		res.redirect('/volley');
+	});
+
 });
+
+
+
 
 module.exports = router;
 

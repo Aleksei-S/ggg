@@ -18,17 +18,44 @@
 
 	<h1><%= title %></h1>
 	<p>Welcome to <%= title %></p>
-	
-      <form method = "POST" action = "/da">
-        <input type="text" name="auto">
-        <button type="submit">Submit</button>
-      </form>
+	<!-- 
+  <form method = "POST" action = "/volley/da">
+    <input type="text" name="auto">
+    <button type="submit">Submit</button>
+  </form>
+-->
 
+<table class="table table-bordered">
+ <thead>
+  <tr>
+    <th>№</th>
+    <th>Этап</th>
+    <th>Команда 1</th>
+    <th>Команда 2</th>
+    <th>Дата</th>
+    <th>Время</th>
+    <th>Зал</th>
+    <th>Результат</th>
+  </tr>
+</thead>
+<tbody>
+    <% tableChampionship.forEach(function (current, index, arr) {%> 
+  <tr>
 
+   <th scope="row"><%=index + 1 %></th>
+   <td><%=current.stage %></td>
+   <td><%=current.team1 %></td>
+   <td><%=current.team2 %></td>
+   <td><%=current.date %></td>
+   <td><%=current.time %></td>
+   <td><%=current.place %></td>
+   <td><%=current.result %></td>
+ </tr>
+  <% })%> 
+</tbody>
+</table>
 
-
-
-	<button type="submit" >Отправить</button>
+<form method = "POST" action = "/volley/da">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -43,26 +70,21 @@
       </tr>
     </thead>
     <tbody>
-
-
       <tr>
         <th scope="row">1</th>
         <td>
           <div class="col-xs-5">
             <input type="text" name="stage" list="stage_list">
           </div>
-            <datalist id="stage_list">
-              <option>Бавария</option>
-              <option>Бенфика</option>
-              <option>Боруссия</option>
-              <option>Брюгге</option>
-              <!-- и т.д. -->
-            </datalist>
-
+          <datalist id="stage_list">
+            <% stageList.forEach(function (current, index, arr) {%>
+            <option> <%= current%> </option> <% })%>
+            <!-- и т.д. -->
+          </datalist>
         </td>
         <td>   
           <div class="form-group">
-            <select class="form-control" id="exampleSelect1"> 
+            <select class="form-control" id="exampleSelect1" name="team1"> 
              <% teamList.forEach(function (current, index, arr) {%>
              <option> <%= current%> </option> <% })%>
            </select>
@@ -70,7 +92,7 @@
        </td>
        <td>
          <div class="form-group">
-          <select class="form-control" id="exampleSelect1"> 
+          <select class="form-control" id="exampleSelect1" name="team2"> 
            <% teamList.forEach(function (current, index, arr) {%>
            <option> <%= current%> </option> <% })%>
          </select>
@@ -81,22 +103,18 @@
      <td>
       <input type="text" name="place" list="place_list">
       <datalist id="place_list">
-        <option>Бавария</option>
-        <option>Бенфика</option>
-        <option>Боруссия</option>
-        <option>Брюгге</option>
-        <!-- и т.д. -->
+        <% placeList.forEach(function (current, index, arr) {%>
+        <option> <%= current%> </option> <% })%>
       </datalist>
-
     </td>
-
     <td>
       <input type="text" name="result" pattern="\d+(\-\d{1})?">
     </td>
   </tr>
 </tbody>
 </table>
-
+<button type="submit">Добавить</button>
+</form>
 
 
 
